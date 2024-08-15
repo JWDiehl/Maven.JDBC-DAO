@@ -21,4 +21,16 @@ public class CarDTO implements DTO {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "CarDTO{" +
+                "id=" + id +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", color='" + color + '\'' +
+                ", vin='" + vin + '\'' +
+                '}';
+    }
 }
