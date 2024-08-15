@@ -53,4 +53,8 @@ public class CarDTO implements DTO {
     public String getVin() {
         return vin;
     }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }
