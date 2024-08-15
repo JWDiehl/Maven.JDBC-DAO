@@ -33,4 +33,24 @@ public class CarDTO implements DTO {
                 ", vin='" + vin + '\'' +
                 '}';
     }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getVin() {
+        return vin;
+    }
 }

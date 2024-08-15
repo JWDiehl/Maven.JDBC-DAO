@@ -84,11 +84,40 @@ public class CarDAO implements DAO<CarDTO> {
     @Override
     public CarDTO create(CarDTO car) {
         String query = "INSERT INTO car (make, model, year, color, vin) VALUES (?, ?, ?, ?, ?)";
-        return null;
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, car.getMake());
+            pstmt.setString(2, car.getModel());
+            pstmt.setInt(3, car.getYear());
+            pstmt.setString(4, car.getColor());
+            pstmt.setString(5, car.getVin());
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                car = new CarDTO(
+                        rs.getInt(1), // Generated ID
+                        car.getMake(),
+                        car.getModel(),
+                        car.getYear(),
+                        car.getColor(),
+                        car.getVin()
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return car;
     }
 
     @Override
     public void delete(int id) {
-
+        String query = "DELETE FROM car WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
